@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Directorio MPA Santa Fe 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:    #1B3A6B;
+      --azul2:   #2E5BA8;
+      --azul-acc:#7BA7E0;
+      --azul-l:  #EBF1FB;
+      --verde:   #1D6A2E;
+      --verde-l: #EAF5EC;
+      --amarillo:#B8860B;
+      --amar-l:  #FEF9E7;
+      --negro:   #111110;
+      --gris:    #F4F4F2;
+      --gris2:   #E8E8E4;
+      --gris3:   #9A9A96;
+      --blanco:  #FAFAF8;
+      --borde:   #D8D8D4;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'IBM Plex Sans', Arial, system-ui, sans-serif;
+      background: var(--gris);
+      color: var(--negro);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--azul);
+      border-bottom: 2px solid var(--azul2);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topbar-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .topbar-brand span { color: var(--azul-acc); }
+    .topbar-sub {
+      font-size: 10px;
+      color: var(--azul-acc);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    /* ── SEARCH BAR ── */
+    .search-section {
+      background: #fff;
+      border-bottom: 1px solid var(--borde);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 520px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gris3);
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      font-size: 13px;
+      font-family: inherit;
+      border: 1px solid var(--borde);
+      border-radius: 4px;
+      background: var(--gris);
+      color: var(--negro);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .search-input:focus {
+      border-color: var(--azul2);
+      background: #fff;
+    }
+    .search-input::placeholder { color: var(--gris3); }
+    .clear-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gris3);
+      font-size: 16px;
+      line-height: 1;
+      padding: 2px 4px;
+      display: none;
+    }
+    .clear-btn:hover { color: var(--negro); }
+    .count-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--gris3);
+      white-space: nowrap;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      padding: 16px 24px 32px;
+      max-width: 860px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ── GRID DE CARDS ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 8px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--gris2);
+      border-radius: 4px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .card:hover {
+      border-color: var(--azul2);
+      background: var(--azul-l);
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--azul);
+      color: var(--azul-l);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.03em;
+    }
+
+    .info {
+      flex: 1;
+      min-width: 0;
+    }
+    .name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--negro);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+    .email {
+      font-size: 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--gris3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .actions {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'IBM Plex Mono', monospace;
+      border-radius: 4px;
+      border: 1px solid;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.12s;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn-tel {
+      color: var(--azul);
+      border-color: var(--azul2);
+      background: var(--azul-l);
+    }
+    .btn-tel:hover { background: #D6E8FF; }
+    .btn-wa {
+      color: var(--verde);
+      border-color: var(--verde);
+      background: var(--verde-l);
+    }
+    .btn-wa:hover { background: #C3E6CB; }
+    .btn-mail {
+      color: var(--amarillo);
+      border-color: var(--amarillo);
+      background: var(--amar-l);
+    }
+    .btn-mail:hover { background: #FDE9A0; }
+
+    /* ── SIN RESULTADOS ── */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--gris3);
+      font-size: 13px;
+      padding: 48px 0;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      font-size: 10px;
+      color: var(--gris3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 12px 0 20px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .topbar { padding: 0 16px; }
+      main { padding: 12px 12px 24px; }
+      .search-section { padding: 10px 16px; }
+      .grid { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-brand">ANTENUCCI<span> / </span>MPA SANTA FE</div>
+    <div class="topbar-sub">Directorio 2026</div>
+  </header>
+
+  <div class="search-section">
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input
+        class="search-input"
+        type="search"
+        id="q"
+        placeholder="Buscar por apellido o nombre…"
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+      />
+      <button class="clear-btn" id="clear" aria-label="Limpiar búsqueda">×</button>
+    </div>
+    <div class="count-badge" id="count"></div>
+  </div>
+
+  <main>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer>Ministerio Público de la Acusación · Santa Fe · 2026</footer>
+
+  <script>
+    const DATA = [
+      ["ADDOUMIE IVANA","3413627954","iaddoumie@mpa.santafe.gov.ar"],
+      ["AIELLO GUILLERMINA","3416146169","gaiello@mpa.santafe.gov.ar"],
+      ["ALMADA RAQUEL","3416147599","ralmada@mpa.santafe.gov.ar"],
+      ["ALTARE LUCAS","3416053146","laltare@mpa.santafe.gov.ar"],
+      ["ALVAREZ CARLOS","3413655384","calvarez@mpa.santafe.gov.ar"],
+      ["APANOWICZ GUILLERMO","3416213870","gapanowicz@mpa.santafe.gov.ar"],
+      ["ARANDA FEDERICO","3413746659","faranda@mpa.santafe.gov.ar"],
+      ["BALBIS AQUILES","3476658598","abalbis@mpa.santafe.gov.ar"],
+      ["BALLARI VERONICA","3415865193","mballari@mpa.santafe.gov.ar"],
+      ["BANCHIO MERCEDES","3413730290","mbanchio@mpa.santafe.gov.ar"],
+      ["BAÑOS JUAN PABLO","3471356952","jbanos@mpa.santafe.gov.ar"],
+      ["BARRERA FLORENCIA","3412526356","fbarrera@mpa.santafe.gov.ar"],
+      ["BARROS PAULA","3417075525","pbarros@mpa.santafe.gov.ar"],
+      ["BARTOCCI KARINA","3416210801","kbartocci@mpa.santafe.gov.ar"],
+      ["BARUCCA LEONARDO","3413746684","ljbarucca@mpa.santafe.gov.ar"],
+      ["BASSAGAISTEGUY GABRIELA","3416064514","gbassagaisteguy@mpa.santafe.gov.ar"],
+      ["BERNARDI AMILCAR","3413746685","abernardi@mpa.santafe.gov.ar"],
+      ["BERTOTTO JOSEFINA","3416146079","mbertotto@mpa.santafe.gov.ar"],
+      ["BRACHINO LUCRECIA","3415865174","mbracchino@mpa.santafe.gov.ar"],
+      ["CABRERA ABI LUZ","3471356680","acabrera@mpa.santafe.gov.ar"],
+      ["CABRERA MOLINO CESAR","3416051973","ccabreramolino@mpa.santafe.gov.ar"],
+      ["CARATOZZOLO MARIANA","3413655385","mcaratozzolo@mpa.santafe.gov.ar"],
+      ["CARBONE FRANCO","3413084428","fcarbone@mpa.santafe.gov.ar"],
+      ["CARDINALI CECILIA","3412585618","ccardinali@mpa.santafe.gov.ar"],
+      ["CARIZZA DAVID","3416211956","dcarizza@mpa.santafe.gov.ar"],
+      ["CARON ALEJANDRO","3413730293","acaron@mpa.santafe.gov.ar"],
+      ["CASAMAJO ELISA","3416748968","ecasamajo@mpa.santafe.gov.ar"],
+      ["CATERINA JOSE LUIS","3416051986","jcaterina@mpa.santafe.gov.ar"],
+      ["CERUTTI ANABEL","3412679330","acerutti@mpa.santafe.gov.ar"],
+      ["CHERARA GEORGINA","3413930294","gcherara@mpa.santafe.gov.ar"],
+      ["CICERCHIA AURELIO","3425942520","acicerchia@mpa.santafe.gov.ar"],
+      ["CIMINO DAMIAN","3416836771","dcimino@mpa.santafe.gov.ar"],
+      ["COCOMAZZI ROMINA","3413747282","rcocomazzi@mpa.santafe.gov.ar"],
+      ["CORNIER LUCILA","3413746677","lcornier@mpa.santafe.gov.ar"],
+      ["COSGAYA ROCIO","3464300790","rcosgaya@mpa.santafe.gov.ar"],
+      ["COVANI CARLOS","3413084525","ccovani@mpa.santafe.gov.ar"],
+      ["CUDOS SOFIA","3413746679","scudos@mpa.santafe.gov.ar"],
+      ["DALCOL MANUELA","3413654284","mdalcol@mpa.santafe.gov.ar"],
+      ["DALMAU FERNANDO","3416214730","fdalmau@mpa.santafe.gov.ar"],
+      ["DEBIASI BRENDA","3416400438","bdebiasi@mpa.santafe.gov.ar"],
+      ["DUCASSE ERNESTO","3413730279","educasse@mpa.santafe.gov.ar"],
+      ["EDERY MATIAS","3415865125","medery@mpa.santafe.gov.ar"],
+      ["EHRET EMILIANO","3425116232","eehret@mpa.santafe.gov.ar"],
+      ["EIRIS AGUSTINA","3412629129","aeiris@mpa.santafe.gov.ar"],
+      ["ENRIQUEZ HUGO IVAN","3412538983","henriquez@mpa.santafe.gov.ar"],
+      ["FABBRO MARISOL","3416144851","mfabbro@mpa.santafe.gov.ar"],
+      ["FELDMAN JULIA","3417075528","jfeldman@mpa.santafe.gov.ar"],
+      ["FERLAZZO ALEJANDRO","3413627414","aferlazzo@mpa.santafe.gov.ar"],
+      ["FERROGGIARO GABRIEL","3416064513","gferroggiaro@mpa.santafe.gov.ar"],
+      ["FERTITTA AGUSTINA","3413730280","afertitta@mpa.santafe.gov.ar"],
+      ["GABENARA VIRGINIA","3413746670","vgabenara@mpa.santafe.gov.ar"],
+      ["GIRO DIEGO","3413589553","dgiro@mpa.santafe.gov.ar"],
+      ["GLIKMAN BARBARA","3412539018","bglikman@mpa.santafe.gov.ar"],
+      ["GONZALEZ JULIANA","3416211084","jgonzalez@mpa.santafe.gov.ar"],
+      ["GONZALEZ RAGGIO RAMIRO","3413627421","rgonzalezraggio@mpa.santafe.gov.ar"],
+      ["GRABOWSKI ANA","3476665255","agrabowski@mpa.santafe.gov.ar"],
+      ["GRANATO TERESA","3412542473","mtgranato@mpa.santafe.gov.ar"],
+      ["GUSSO MARIELA","3413730281","mgusso@mpa.santafe.gov.ar"],
+      ["HUESO IGNACIO","3413730282","ihueso@mpa.santafe.gov.ar"],
+      ["JURADO WALTER","3416146762","wjurado@mpa.santafe.gov.ar"],
+      ["LAGAR MARIANGELES","3416053192","mlagar@mpa.santafe.gov.ar"],
+      ["LANZA PABLO","3413627419","planza@mpa.santafe.gov.ar"],
+      ["LASCIALANDARE EUGENIA","3416423637","elascialandare@mpa.santafe.gov.ar"],
+      ["LEDESMA JUAN","3425115741","jledesma@mpa.santafe.gov.ar"],
+      ["LOPEZ VERONICA","3416064542","vlopez@mpa.santafe.gov.ar"],
+      ["LUNA MARIANELA","3412554247","mluna@mpa.santafe.gov.ar"],
+      ["MAC CORMACK ADRIAN","","amaccormack@mpa.santafe.gov.ar"],
+      ["MARCOLIN LOBERSE M. CECILIA","3413730284","mmarcolin@mpa.santafe.gov.ar"],
+      ["MARTINEZ RAFAEL","3415865474","rimartinez@mpa.santafe.gov.ar"],
+      ["MARTINEZ RAMIRO","3413730285","ramartinez@mpa.santafe.gov.ar"],
+      ["MASSA ANA MARIA","3413087222","amassa@mpa.santafe.gov.ar"],
+      ["MAXIMINO MARCELO","3416654731","mmaximino@mpa.santafe.gov.ar"],
+      ["MAZZONI GERMAN","3412648017","gmazzoni@mpa.santafe.gov.ar"],
+      ["MEINERO DIEGO","3413619925","dmeinero@mpa.santafe.gov.ar"],
+      ["MIATELLO FRANCO","3413589542","fmiatello@mpa.santafe.gov.ar"],
+      ["MILICIC ANA JULIA","3412640018","amilicic@mpa.santafe.gov.ar"],
+      ["MOUTIN POL","3413746999","pmoutin@mpa.santafe.gov.ar"],
+      ["NARVAJA SEBASTIAN","3416213365","snarvaja@mpa.santafe.gov.ar"],
+      ["NAVONE NOELIA","3413223013","nnavone@mpa.santafe.gov.ar"],
+      ["NICOSIA HERRERO M.","3412539057","mnicosia@mpa.santafe.gov.ar"],
+      ["O'CONNELL VIVIANA","3416064548","voconnell@mpa.santafe.gov.ar"],
+      ["OCARIZ MATIAS","3416210906","mocariz@mpa.santafe.gov.ar"],
+      ["OGGERO JUAN PABLO","3413730287","joggero@mpa.santafe.gov.ar"],
+      ["OLIVA MARIELA","3416745995","moliva@mpa.santafe.gov.ar"],
+      ["OLIVA MARINA","3413746680","mboliva@mpa.santafe.gov.ar"],
+      ["ORTIGOZA CARLOS","3413619942","cortigoza@mpa.santafe.gov.ar"],
+      ["PAIROLA GEORGINA","3416145252","gpairola@mpa.santafe.gov.ar"],
+      ["PAPONI LUISINA","3417075543","lpaponi@mpa.santafe.gov.ar"],
+      ["PAZ JAVIER","3476665316","jpaz@mpa.santafe.gov.ar"],
+      ["PAZOS LUCIA","3476665332","lpazos@mpa.santafe.gov.ar"],
+      ["PIAZZA VALERIA","3416064512","vpiazza@mpa.santafe.gov.ar"],
+      ["PIERANTONI CESAR","3417057819","cpierantoni@mpa.santafe.gov.ar"],
+      ["PRUNOTTO MARIANA","3416143486","mprunotto@mpa.santafe.gov.ar"],
+      ["RAIGAL ALEJANDRA","3416145127","araigal@mpa.santafe.gov.ar"],
+      ["RANCIARI CARLA","3413730295","cranciari@mpa.santafe.gov.ar"],
+      ["RICCARDI NOELIA","3416052038","nriccardi@mpa.santafe.gov.ar"],
+      ["RICCARDO M. LAURA","3413730400","mriccardo@mpa.santafe.gov.ar"],
+      ["ROLON NICOLAS","3413747001","nrolon@mpa.santafe.gov.ar"],
+      ["SALDUTTI PATRICIO","3413627417","psaldutti@mpa.santafe.gov.ar"],
+      ["SANCHEZ JUAN ANDRES","3364647492","jsanchez@mpa.santafe.gov.ar"],
+      ["SANGUINETTI MARTIN","3413737089","msanguinetti@mpa.santafe.gov.ar"],
+      ["SARAVALLI ANALIA","3425115629","asaravalli@mpa.santafe.gov.ar"],
+      ["SCHIAPPA PIETRA LUIS","3416834512","lschiappa@mpa.santafe.gov.ar"],
+      ["SERENA MELISA","3476658581","mserena@mpa.santafe.gov.ar"],
+      ["SOCCA PABLO","3413619921","psocca@mpa.santafe.gov.ar"],
+      ["SPELTA ADRIAN","3416147559","aspelta@mpa.santafe.gov.ar"],
+      ["TASSINI FRANCO","3413739088","ftassini@mpa.santafe.gov.ar"],
+      ["TORNO GUILLERMINA","3413627420","gtorno@mpa.santafe.gov.ar"],
+      ["TOROSSI M. BELEN","","mtorossi@mpa.santafe.gov.ar"],
+      ["TOSCO SANTIAGO","3416146258","stosco@mpa.santafe.gov.ar"],
+      ["TRANGONI LEANDRO","3416064528","ltrangoni@mpa.santafe.gov.ar"],
+      ["TREVISAN MATIAS","3412539037","mtrevisan@mpa.santafe.gov.ar"],
+      ["URRUTICOECHEA RODRIGO","3416052009","rurruticoechea@mpa.santafe.gov.ar"],
+      ["VALENTE ANTONELA","3413747002","avalente@mpa.santafe.gov.ar"],
+      ["VALERO SILVANA","3416745543","svalero@mpa.santafe.gov.ar"],
+      ["VEGA ANDREA","3416657938","avega@mpa.santafe.gov.ar"],
+      ["VERGILI FLORENCIA","3416605407","fvergili@mpa.santafe.gov.ar"],
+      ["VIGNA VICTORIA","3413746548","vvigna@mpa.santafe.gov.ar"],
+      ["VIGO MARINA","3416605472","mvigo@mpa.santafe.gov.ar"],
+      ["VITOLA MARCELO","3413619917","mvitola@mpa.santafe.gov.ar"],
+      ["ZARATE ESTELA","3417690277","ezarate@mpa.santafe.gov.ar"],
+      ["ZINGONI ELIANA","3416605489","ezingoni@mpa.santafe.gov.ar"]
+    ];
+
+    function initials(name) {
+      const parts = name.trim().split(/\s+/);
+      return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+    }
+
+    function normalize(s) {
+      return s.toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+    }
+
+    function render(q) {
+      const term = normalize(q.trim());
+      const filtered = DATA.filter(([name]) => normalize(name).includes(term));
+
+      const countEl = document.getElementById('count');
+      countEl.textContent = filtered.length + (filtered.length === 1 ? ' contacto' : ' contactos');
+
+      const grid = document.getElementById('grid');
+      if (!filtered.length) {
+        grid.innerHTML = '<div class="empty">Sin resultados para "' + q + '"</div>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(([name, tel, email]) => {
+        const ini = initials(name);
+        const telBtn = tel
+          ? `<a class="btn btn-tel" href="tel:+54${tel}" title="${tel}">${tel}</a>`
+          : '';
+        const waBtn = tel
+          ? `<a class="btn btn-wa" href="https://wa.me/54${tel}" target="_blank" rel="noopener">WA</a>`
+          : '';
+        const mailBtn = `<a class="btn btn-mail" href="mailto:${email}">Mail</a>`;
+        return `
+          <div class="card">
+            <div class="avatar" aria-hidden="true">${ini}</div>
+            <div class="info">
+              <div class="name">${name}</div>
+              <div class="email">${email}</div>
+            </div>
+            <div class="actions">${telBtn}${waBtn}${mailBtn}</div>
+          </div>`;
+      }).join('');
+    }
+
+    const input = document.getElementById('q');
+    const clearBtn = document.getElementById('clear');
+
+    input.addEventListener('input', () => {
+      clearBtn.style.display = input.value ? 'block' : 'none';
+      render(input.value);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      clearBtn.style.display = 'none';
+      input.focus();
+      render('');
+    });
+
+    render('');
+  </script>
+</body>
+</html>
