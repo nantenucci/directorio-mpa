@@ -1,8 +1,8 @@
 const CACHE = 'mpa-2026-v1';
 const ASSETS = [
-  '/directorio-mpa/',
-  '/directorio-mpa/index.html',
-  '/directorio-mpa/manifest.json'
+  '/',
+  '/index.html',
+  '/manifest.json'
 ];
 
 self.addEventListener('install', e => {

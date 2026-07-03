@@ -2,7 +2,7 @@
   "name": "Directorio MPA Santa Fe",
   "short_name": "MPA 2026",
   "description": "Directorio de fiscales y funcionarios del MPA Santa Fe 2026",
-  "start_url": "/directorio-mpa/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#F4F4F2",
   "theme_color": "#1B3A6B",
